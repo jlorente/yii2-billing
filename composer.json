@@ -1,0 +1,24 @@
+{
+    "name": "jlorente/yii2-billing",
+    "description": "A Yii2 extension to handle the billing feature in our projects. It includes a fluent programming interface to create invoices and a visual interface to create, edit and export them in html or pdf format.",
+    "keywords": ["yii2", "billing", "invoice", "item", "bill", "payment"],
+    "homepage": "https://github.com/jlorente/yii2-billing",
+    "type": "yii2-extension",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jose Lorente Martin",
+            "email": "jose.lorente.martin@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0",
+        "jlorente/yii2-locations": "dev-master",
+        "kartik-v/yii2-mpdf": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "jlorente\\billing\\": "src/"
+        }
+    }
+}
