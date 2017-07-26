@@ -1,8 +1,19 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @author      José Lorente <jose.lorente.martin@gmail.com>
+ * @license     The MIT License (MIT)
+ * @copyright   José Lorente
+ * @version     1.0
  */
 
+namespace jlorente\billing\controllers;
+
+/**
+ * Invoice controller of the jlorente billing module.
+ * 
+ * @author José Lorente <jose.lorente.martin@gmail.com>
+ */
+class InvoiceController extends Controller {
+    
+}
