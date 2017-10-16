@@ -10,6 +10,8 @@
 namespace jlorente\billing;
 
 use Yii;
+use yii\helpers\ArrayHelper;
+use yii\filters\AccessControl;
 use yii\base\BootstrapInterface;
 use yii\base\Module as BaseModule;
 
@@ -61,6 +63,7 @@ class Module extends BaseModule implements BootstrapInterface {
      * @var array 
      */
     public $translations = [];
+    public $controllerAccess = [];
 
     /**
      * @inheritdoc
@@ -70,19 +73,29 @@ class Module extends BaseModule implements BootstrapInterface {
         $this->setAliases([
             '@jlorenteBilling' => '@vendor/jlorente/yii2-billing/src'
         ]);
-        Yii::$app->i18n->translations['jlorente/billing'] = $this->getMessageConfig();
+        Yii::$app->i18n->translations['jlorente/billing'] = $this->getTranslationsConfig();
+        $this->controllerAccess = ArrayHelper::merge([
+                    'class' => AccessControl::className(),
+                    'rules' => [
+                        [
+                            'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                            'allow' => true,
+                            'roles' => ['@']
+                        ]
+                    ],
+                        ], $this->controllerAccess);
     }
 
     /**
      * 
      * @return array
      */
-    protected function getMessageConfig() {
+    protected function getTranslationsConfig() {
         return array_merge([
             'class' => 'yii\i18n\PhpMessageSource',
             'basePath' => '@jlorenteBilling/messages',
             'forceTranslation' => true
-                ], $this->messageConfig);
+                ], $this->translations);
     }
 
     /**

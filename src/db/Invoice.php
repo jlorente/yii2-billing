@@ -25,16 +25,15 @@ use yii\behaviors\TimestampBehavior,
  * @property integer $invoiced_at
  * @property string $client_name
  * @property string $client_id
- * @property integer $client_location_id
+ * @property string $client_address
  * @property string $supplier_name
  * @property string $supplier_id
- * @property integer $supplier_location_id 
+ * @property string $supplier_address 
  * @property integer $status
  * @property string $extra_data
+ * @property string $total_price
  * 
  * @property Item[] $items A collection of the items of this invoice.
- * @property Location $clientLocation The client location data object.
- * @property Location $supplierLocation The supplier location data object.
 
  * @author José Lorente <jose.lorente.martin@gmail.com>
  */
@@ -54,9 +53,10 @@ class Invoice extends ActiveRecord {
         return [
             [['number', 'invoiced_at', 'client_name', 'client_id', 'supplier_name', 'supplier_id', 'status'], 'required']
             , [['extra_data'], 'string']
-            , [['invoiced_at', 'status', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer']
+            , [['invoiced_at', 'status', 'client_address', 'supplier_address', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer']
             , [['number', 'client_name', 'client_id', 'supplier_name', 'supplier_id'], 'string', 'max' => 255]
             , [['number'], 'unique']
+            , [['total_price'], 'number']
         ];
     }
 
@@ -70,12 +70,13 @@ class Invoice extends ActiveRecord {
             , 'invoiced_at' => Yii::t('jlorente/billing', 'Invoiced At')
             , 'client_name' => Yii::t('jlorente/billing', 'Client Name')
             , 'client_id' => Yii::t('jlorente/billing', 'Client Id')
-            , 'client_location_id' => Yii::t('jlorente/billing', 'Client Location')
+            , 'client_address' => Yii::t('jlorente/billing', 'Client Addres')
             , 'supplier_name' => Yii::t('jlorente/billing', 'Supplier Name')
             , 'supplier_id' => Yii::t('jlorente/billing', 'Supplier Id')
-            , 'supplier_location_id' => Yii::t('jlorente/billing', 'Supplier Location')
+            , 'supplier_address' => Yii::t('jlorente/billing', 'Supplier Address')
             , 'status' => Yii::t('jlorente/billing', 'Status')
             , 'extra_data' => Yii::t('jlorente/billing', 'Extra Data')
+            , 'total_price' => Yii::t('jlorente/billing', 'Total Price')
             , 'created_at' => Yii::t('jlorente/billing', 'Created At')
             , 'created_by' => Yii::t('jlorente/billing', 'Created By')
             , 'updated_at' => Yii::t('jlorente/billing', 'Updated At')
@@ -88,8 +89,8 @@ class Invoice extends ActiveRecord {
      */
     public function behaviors() {
         return ArrayHelper::merge(parent::behaviors(), [
-                    TimestampBehavior::className()
-                    , BlameableBehavior::className()
+                    'timestamp' => TimestampBehavior::className()
+                    , 'blameable' => BlameableBehavior::className()
         ]);
     }
 
