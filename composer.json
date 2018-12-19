@@ -13,7 +13,7 @@
     ],
     "require": {
         "php": ">=5.5.0",
-        "jlorente/yii2-locations": "0.6.0",
+        "jlorente/yii2-locations": "^0.6.0",
         "kartik-v/yii2-mpdf": "*"
     },
     "autoload": {
